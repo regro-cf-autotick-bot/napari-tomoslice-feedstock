@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-tomoslice-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-tomoslice-{{ version }}.tar.gz
   sha256: 3c8bc659df18e4eaebb975a3a85714ee087c78569fc1bc3bc3c44e399f878bcc
 
 build:
@@ -14,19 +14,19 @@ build:
     - napari-tomoslice = napari_tomoslice.cli:cli
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
     - setuptools-scm
   run:
     - mrcfile
     - napari ==0.4.12
     - napari-plugin-engine >=0.1.4
     - numpy
-    - python >=3.7
+    - python >={{ python_min }}
     - typer
 
 test:
@@ -38,6 +38,7 @@ test:
     - napari-tomoslice --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/alisterburt/napari-tomoslice
